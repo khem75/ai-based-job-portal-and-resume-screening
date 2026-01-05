@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="p-5 mb-5 bg-white rounded-3 shadow-sm text-center position-relative overflow-hidden">
+    <div class="position-relative" style="z-index: 2;">
+        <h1 class="display-4 fw-bold text-dark">Find Your Dream Job with AI</h1>
+        <p class="lead text-muted mb-4">Upload your resume and let our Machine Learning engine calculate your perfect match score.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/post_job" class="btn btn-primary btn-lg"><i class="bi bi-plus-circle"></i> Post a Job</a>
+            <a href="#jobs" class="btn btn-outline-secondary btn-lg">Browse Jobs</a>
+        </div>
+    </div>
+</div>
+
+<h3 class="mb-4 fw-bold text-secondary" id="jobs"><i class="bi bi-briefcase-fill"></i> Latest Openings</h3>
+
+<div class="row">
+    {% for job in jobs %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <h5 class="card-title fw-bold text-dark">{{ job[1] }}</h5>
+                    <span class="badge bg-light text-primary border border-primary">Full Time</span>
+                </div>
+                <hr class="my-3 opacity-10">
+                <p class="card-text text-muted" style="height: 60px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                    {{ job[2] }}
+                </p>
+                <div class="mt-4 d-flex justify-content-between align-items-center">
+                    <a href="/apply/{{ job[0] }}" class="btn btn-primary btn-sm px-4">Apply Now</a>
+                    <a href="/dashboard/{{ job[0] }}" class="btn btn-link text-decoration-none text-muted btn-sm">
+                        <i class="bi bi-bar-chart-fill"></i> HR View
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12 text-center py-5">
+        <img src="https://cdn-icons-png.flaticon.com/512/7486/7486747.png" width="100" class="mb-3 opacity-50">
+        <h4 class="text-muted">No jobs posted yet.</h4>
+        <a href="/post_job" class="btn btn-primary mt-2">Be the first to post!</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

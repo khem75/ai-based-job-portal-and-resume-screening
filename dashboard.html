@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Applicants for: <span class="text-primary">{{ job[1] }}</span></h2>
+    <span class="badge bg-secondary">Job ID: {{ job[0] }}</span>
+</div>
+
+<div class="alert alert-light border shadow-sm">
+    <strong><i class="bi bi-robot"></i> AI Assessment Criteria:</strong><br>
+    <small class="text-muted">
+        1. <strong>Shortlisted:</strong> Match Score > 50% AND High Quality Resume.<br>
+        2. <strong>Resume Check:</strong> Scans for "Education", "Experience", and "Projects" sections.
+    </small>
+</div>
+
+<table class="table table-hover mt-3 shadow bg-white rounded align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Rank</th>
+            <th>Candidate</th>
+            <th>Match Score</th>
+            <th>ATS Status</th>
+            <th>Resume Quality</th>
+            <th>Missing Skills</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for applicant in applicants %}
+        <tr class="{% if applicant[6] == 'Shortlisted' %}table-success{% else %}table-light{% endif %}">
+            <td class="fw-bold">#{{ loop.index }}</td>
+            <td>{{ applicant[2] }}</td>
+            <td>
+                <span class="fw-bold">{{ applicant[4] }}%</span>
+            </td>
+            <td>
+                {% if applicant[6] == 'Shortlisted' %}
+                    <span class="badge bg-success"><i class="bi bi-check-lg"></i> Shortlisted</span>
+                {% else %}
+                    <span class="badge bg-danger"><i class="bi bi-x-lg"></i> Rejected</span>
+                {% endif %}
+            </td>
+            <td>
+                <span class="badge bg-light text-dark border">{{ applicant[7] }}</span>
+            </td>
+            <td>
+                <small class="text-danger">{{ applicant[5] }}</small>
+            </td>
+            <td>
+                <a href="/uploads/{{ applicant[3] }}" target="_blank" class="btn btn-sm btn-primary">
+                    <i class="bi bi-eye"></i> View
+                </a>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="text-center py-4">No applicants yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="mt-4">
+    <a href="/" class="btn btn-outline-secondary">← Back to Home</a>
+</div>
+{% endblock %}

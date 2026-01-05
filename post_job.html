@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Post a New Job</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label>Job Title</label>
+        <input type="text" name="title" class="form-control" required placeholder="e.g. Python Developer">
+    </div>
+    <div class="mb-3">
+        <label>Job Description (Keywords are important for AI!)</label>
+        <textarea name="description" class="form-control" rows="5" required placeholder="Paste full job description here..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Post Job</button>
+</form>
+{% endblock %}
